@@ -13,7 +13,8 @@ function App() {
     const addCourse = () => {
       const course = {
         id: courseList.length === 0 ? 1 : courseList[courseList.length - 1].id + 1,
-        courseName: newCourse
+        courseName: newCourse,
+        isCompleted: false
       }
       setCourseList([...courseList, course]);
       console.log(courseList);
@@ -25,6 +26,16 @@ function App() {
     ))
     }
 
+    const completeCourse = (courseId) =>  {
+      const newCourseList = courseList.map((course) =>{
+        if (course.id === courseId) 
+          return {...course, isCompleted : !course.isCompleted}
+        else 
+          return course
+      })
+      setCourseList(newCourseList)
+    }
+
   return (
     <div className="App">
       <div className='add-course'>
@@ -34,7 +45,9 @@ function App() {
       <div className='list'>
           {courseList.map((course, index) => {
             return (
-              <Course key={index} course={course} deleteCourse={deleteCourse} />
+              <Course key={index} course={course} 
+              deleteCourse={deleteCourse}
+              completeCourse={completeCourse} />
             ) 
           })}
       </div>
