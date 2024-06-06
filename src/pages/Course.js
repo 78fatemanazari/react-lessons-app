@@ -1,9 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { ProfileContext } from '../App';
 
 export const Course = () => {
   const [courseList, setCourseList] = useState([]);
   const [newCourse, setNewCourse] = useState("");
+  const {username} = useContext(ProfileContext);
 
     const handleChange = (event) => {
       setNewCourse(event.target.value);
@@ -37,6 +39,7 @@ export const Course = () => {
   return (
     <div className="App">
       <div className='add-course'>
+        <h1>This course page for - {username} </h1>
         <input type='text' onChange={handleChange}></input>
         <button onClick={addCourse}>Add Course</button>
       </div>
