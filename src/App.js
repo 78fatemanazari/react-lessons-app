@@ -4,14 +4,19 @@ import { Course } from './pages/Course';
 import { Excuse } from './pages/Excuse';
 import { Nav } from './components/Nav';
 import { Profile } from './pages/Profile';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import './App.css';
 
 export const ProfileContext = createContext();
 
 function App() {
   const [username, setUsername] = useState("Fatema");
+  const client = new QueryClient({defaultOptions : {
+    queries: {refetchOnWindowFocus: false},
+  }});
   return (
     <ProfileContext.Provider value={{username, setUsername}}>
+      <QueryClientProvider client={client}>
     <Router>
       <Nav />
       <Routes>
@@ -20,6 +25,7 @@ function App() {
         <Route path='/profile/:name?' element={<Profile />} />
       </Routes>
     </Router>
+      </QueryClientProvider>
     </ProfileContext.Provider>
   )
 }

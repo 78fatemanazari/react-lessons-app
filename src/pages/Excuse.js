@@ -1,12 +1,20 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 import Axios from "axios";
 
 export const Excuse = () => {
   let navigate = useNavigate();
   const [fetchExcuse, setFetchExcuse] = useState("");
-  const fetchAllExcuse = (excuse) => {
+  const {data, isLoading, isError, refetch} = useQuery(["excuse"], ()=>{
+    return Axios.get("https://excuser-three.vercel.app/v1/excuse").then((res) => res.data)
+    })
+
+    if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error fetching data</p>;
+  
+    const fetchAllExcuse = (excuse) => {
     Axios.get(`https://excuser-three.vercel.app/v1/excuse/${excuse}/`).then((res) => {
       console.log(res.data);
       setFetchExcuse(res.data[0].excuse)
@@ -22,6 +30,8 @@ export const Excuse = () => {
         <h1>{fetchExcuse}</h1>
       </div>
       <button onClick={() => (navigate('/course'))}>Go to course page</button>
+      <h1>{data[0].excuse}</h1>
+      <button onClick={refetch}>Refresh</button>
     </React.Fragment>
   );
 };
