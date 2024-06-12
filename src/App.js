@@ -6,6 +6,7 @@ import { Nav } from './components/Nav';
 import { Profile } from './pages/Profile';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import './App.css';
+import Forms from './pages/Forms';
 
 export const ProfileContext = createContext();
 
@@ -23,6 +24,7 @@ function App() {
         <Route path='/course' element={<Course />} />
         <Route path='/excuse' element={<Excuse />} />
         <Route path='/profile/:name?' element={<Profile />} />
+        <Route path='/forms' element={<Forms />} />
       </Routes>
     </Router>
       </QueryClientProvider>
