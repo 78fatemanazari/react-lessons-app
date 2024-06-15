@@ -7,6 +7,7 @@ import { Profile } from './pages/Profile';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import './App.css';
 import Forms from './pages/Forms';
+import Counter from './pages/Counter';
 
 export const ProfileContext = createContext();
 
@@ -25,6 +26,7 @@ function App() {
         <Route path='/excuse' element={<Excuse />} />
         <Route path='/profile/:name?' element={<Profile />} />
         <Route path='/forms' element={<Forms />} />
+        <Route path='/counter' element={<Counter />} />
       </Routes>
     </Router>
       </QueryClientProvider>
