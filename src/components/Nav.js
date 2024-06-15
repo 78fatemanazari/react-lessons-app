@@ -7,6 +7,8 @@ export const Nav = () => {
       <Link to={'/profile'}>Profile</Link> |
       <Link to={'/course'}>Courses</Link> |
       <Link to={'/excuse'}>Random Excuse</Link>
+      <Link to={'/forms'}>Forms</Link>
+      <Link to={'/counter'}>Counter</Link>
     </div>
   )
 }
