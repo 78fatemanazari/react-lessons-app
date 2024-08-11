@@ -1,25 +1,36 @@
-import logo from './logo.svg';
+import React, { createContext, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Course } from './pages/Course';
+import { Excuse } from './pages/Excuse';
+import { Nav } from './components/Nav';
+import { Profile } from './pages/Profile';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import './App.css';
+import Forms from './pages/Forms';
+import Counter from './pages/Counter';
+
+export const ProfileContext = createContext();
 
 function App() {
+  const [username, setUsername] = useState("Fatema");
+  const client = new QueryClient({defaultOptions : {
+    queries: {refetchOnWindowFocus: false},
+  }});
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ProfileContext.Provider value={{username, setUsername}}>
+      <QueryClientProvider client={client}>
+    <Router>
+      <Nav />
+      <Routes>
+        <Route path='/course' element={<Course />} />
+        <Route path='/excuse' element={<Excuse />} />
+        <Route path='/profile/:name?' element={<Profile />} />
+        <Route path='/forms' element={<Forms />} />
+        <Route path='/counter' element={<Counter />} />
+      </Routes>
+    </Router>
+      </QueryClientProvider>
+    </ProfileContext.Provider>
+  )
 }
-
 export default App;
